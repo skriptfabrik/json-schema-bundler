@@ -1,0 +1,71 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - *
+
+env:
+  DOCKER_BUILDKIT: 1
+  DOCKER_BUILDKIT_INLINE_CACHE: 1
+  DOCKER_IMAGE_NAME: skriptfabrik/json-schema-bundler
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker images
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Identify release version
+        run: |-
+          echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Push latest Docker image
+        if: env.RELEASE_VERSION == 'main'
+        uses: docker/build-push-action@v2
+        with:
+          build-args: |-
+            BUILDKIT_INLINE_CACHE=${{ env.DOCKER_BUILDKIT_INLINE_CACHE }}
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:latest
+          platforms: |-
+            linux/amd64
+            linux/arm64
+          pull: true
+          push: true
+          tags: |-
+            ${{ env.DOCKER_IMAGE_NAME }}:latest
+
+      - name: Build and Push tagged Docker image
+        if: env.RELEASE_VERSION != 'main'
+        uses: docker/build-push-action@v2
+        with:
+          build-args: |-
+            BUILDKIT_INLINE_CACHE=${{ env.DOCKER_BUILDKIT_INLINE_CACHE }}
+            JSON_SCHEMA_BUNDLER_VERSION=${{ env.RELEASE_VERSION }}
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:latest
+          platforms: |-
+            linux/amd64
+            linux/arm64
+          pull: true
+          push: true
+          tags: |-
+            ${{ env.DOCKER_IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
