@@ -16,11 +16,14 @@ npm install -g @skriptfabrik/json-schema-bundler
 json-schema-bundler --help
 ```
 
-```bash
+```text
 JSON Schema Bundler (latest)
 
 Usage:
   json-schema-bundler [options] <input>
+
+Arguments:
+  input  The path or URL of the input schema file
 
 Options:
   -h, --help    Display this help message
@@ -28,7 +31,9 @@ Options:
   -s, --silent  Silent mode
 
 Examples:
-  json-schema-bundler -ps schema.json
+  Bundle all references in schema.json and print output to stdout:
+
+    json-schema-bundler -ps schema.json
 ```
 
 ## Docker

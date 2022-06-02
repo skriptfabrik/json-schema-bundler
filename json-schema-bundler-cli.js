@@ -13,17 +13,30 @@ const argv = minimist(process.argv.slice(2), {
     },
 });
 
+const colors = {
+    end: '\x1b[0m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    magenta: '\x1b[35m',
+};
+
 if (argv.h || argv._.length < 1) {
     console.error(
-        'JSON Schema Bundler (%s)\n\n\x1b[33mUsage:\x1b[0m\n  %s\n\n\x1b[33mOptions:\x1b[0m\n  %s\n\n\x1b[33mExamples:\x1b[0m\n  %s',
+        `JSON Schema Bundler (%s)\n\n${colors.yellow}Usage:${colors.end}\n  %s\n\n${colors.yellow}Arguments:${colors.end}\n  %s\n\n${colors.yellow}Options:${colors.end}\n  %s\n\n${colors.yellow}Examples:${colors.end}\n  %s`,
         process.env['JSON_SCHEMA_BUNDLER_VERSION'],
         `${path.basename(process.argv[1])} [options] <input>`,
+        `${colors.green}input${colors.end}  The path or URL of the input schema file`,
         [
-            '-h, --help    Display this help message',
-            '-p, --pretty  Pretty print output',
-            '-s, --silent  Silent mode'
+            `${colors.green}-h, --help${colors.end}    Display this help message`,
+            `${colors.green}-p, --pretty${colors.end}  Pretty print output`,
+            `${colors.green}-s, --silent${colors.end}  Silent mode`,
         ].join('\n  '),
-        `${path.basename(process.argv[1])} -ps schema.json`,
+        [
+            [
+                `Bundle all references in ${colors.magenta}schema.json${colors.end} and print output to ${colors.magenta}stdout${colors.end}:`,
+                `${colors.green}${path.basename(process.argv[1])} -ps schema.json${colors.end}`,
+            ].join('\n\n    '),
+        ].join('\n  '),
     );
     process.exit(argv.h ? 0 : 1);
 }
