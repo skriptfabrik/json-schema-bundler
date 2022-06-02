@@ -21,7 +21,7 @@ json-schema-bundler --help
 ```
 
 ```text
-JSON Schema Bundler (latest)
+JSON Schema Bundler
 
 Usage:
   json-schema-bundler [options] <input>
@@ -30,9 +30,10 @@ Arguments:
   input  The path or URL of the input schema file
 
 Options:
-  -h, --help    Display this help message
-  -p, --pretty  Pretty print output
-  -s, --silent  Silent mode
+  -h, --help     Display this help message
+  -p, --pretty   Pretty print output
+  -s, --silent   Silent mode
+  -v, --version  Print version number
 
 Examples:
   Bundle all references in schema.json and print output to stdout:

@@ -11,6 +11,7 @@ const argv = minimist(process.argv.slice(2), {
         h: 'help',
         p: 'pretty',
         s: 'silent',
+        v: 'version',
     },
 });
 
@@ -21,16 +22,21 @@ const colors = {
     magenta: '\x1b[35m',
 };
 
+if (argv.v) {
+    console.log(pkg.version);
+    process.exit(0);
+}
+
 if (argv.h || argv._.length < 1) {
     console.error(
-        `JSON Schema Bundler (%s)\n\n${colors.yellow}Usage:${colors.end}\n  %s\n\n${colors.yellow}Arguments:${colors.end}\n  %s\n\n${colors.yellow}Options:${colors.end}\n  %s\n\n${colors.yellow}Examples:${colors.end}\n  %s`,
-        pkg.version,
+        `JSON Schema Bundler\n\n${colors.yellow}Usage:${colors.end}\n  %s\n\n${colors.yellow}Arguments:${colors.end}\n  %s\n\n${colors.yellow}Options:${colors.end}\n  %s\n\n${colors.yellow}Examples:${colors.end}\n  %s`,
         `${path.basename(process.argv[1])} [options] <input>`,
         `${colors.green}input${colors.end}  The path or URL of the input schema file`,
         [
-            `${colors.green}-h, --help${colors.end}    Display this help message`,
-            `${colors.green}-p, --pretty${colors.end}  Pretty print output`,
-            `${colors.green}-s, --silent${colors.end}  Silent mode`,
+            `${colors.green}-h, --help${colors.end}     Display this help message`,
+            `${colors.green}-p, --pretty${colors.end}   Pretty print output`,
+            `${colors.green}-s, --silent${colors.end}   Silent mode`,
+            `${colors.green}-v, --version${colors.end}  Print version number`,
         ].join('\n  '),
         [
             [
