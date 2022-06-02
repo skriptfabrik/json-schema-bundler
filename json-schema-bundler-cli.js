@@ -3,6 +3,7 @@
 const $RefParser = require('json-schema-ref-parser');
 const minimist = require('minimist');
 const path = require('path');
+const pkg = require('./package.json');
 
 const argv = minimist(process.argv.slice(2), {
     boolean: ['h', 'p', 's'],
@@ -23,7 +24,7 @@ const colors = {
 if (argv.h || argv._.length < 1) {
     console.error(
         `JSON Schema Bundler (%s)\n\n${colors.yellow}Usage:${colors.end}\n  %s\n\n${colors.yellow}Arguments:${colors.end}\n  %s\n\n${colors.yellow}Options:${colors.end}\n  %s\n\n${colors.yellow}Examples:${colors.end}\n  %s`,
-        process.env['JSON_SCHEMA_BUNDLER_VERSION'],
+        pkg.version,
         `${path.basename(process.argv[1])} [options] <input>`,
         `${colors.green}input${colors.end}  The path or URL of the input schema file`,
         [

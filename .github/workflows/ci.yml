@@ -30,11 +30,23 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci
+        run: |-
+          npm ci
 
-      - name: Bump package version
+      - name: Export short SHA
+        run: |-
+          echo "GITHUB_SHORT_SHA=$(echo $GITHUB_SHA | cut -c1-8)" >> ${GITHUB_ENV}
+
+      - name: Set package version
+        if: github.ref_name == 'main'
+        run: |-
+          PACKAGE_VERSION=$(jq -r .version package.json)
+          npm version "${PACKAGE_VERSION%-*}-${GITHUB_SHORT_SHA}" --no-git-tag-version
+
+      - name: Set package version from Git
         if: github.ref_type == 'tag'
-        run: npm version from-git --no-git-tag-version
+        run: |-
+          npm version from-git --no-git-tag-version
 
       - name: Publish package
         uses: JS-DevTools/npm-publish@v1
@@ -61,6 +73,7 @@ jobs:
         with:
           build-args: |-
             BUILDKIT_INLINE_CACHE=${{ env.DOCKER_BUILDKIT_INLINE_CACHE }}
+            JSON_SCHEMA_BUNDLER_VERSION=${{ env.GITHUB_SHORT_SHA }}
           cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:latest
           platforms: |-
             linux/amd64

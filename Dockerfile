@@ -4,7 +4,6 @@ LABEL maintainer="Daniel Schröder <daniel.schroeder@skriptfabrik.com>"
 
 ARG JSON_SCHEMA_BUNDLER_VERSION=latest
 
-ENV JSON_SCHEMA_BUNDLER_VERSION=${JSON_SCHEMA_BUNDLER_VERSION}
 ENV NODE_ENV=production
 
 COPY . /opt/json-schema-bundler-${JSON_SCHEMA_BUNDLER_VERSION}
