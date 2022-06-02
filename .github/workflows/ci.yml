@@ -75,6 +75,7 @@ jobs:
             BUILDKIT_INLINE_CACHE=${{ env.DOCKER_BUILDKIT_INLINE_CACHE }}
             JSON_SCHEMA_BUNDLER_VERSION=${{ env.GITHUB_SHORT_SHA }}
           cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:latest
+          context: .
           platforms: |-
             linux/amd64
             linux/arm64
@@ -96,6 +97,7 @@ jobs:
             BUILDKIT_INLINE_CACHE=${{ env.DOCKER_BUILDKIT_INLINE_CACHE }}
             JSON_SCHEMA_BUNDLER_VERSION=v${{ env.RELEASE_VERSION }}
           cache-from: type=registry,ref=${{ env.DOCKER_IMAGE_NAME }}:latest
+          context: .
           platforms: |-
             linux/amd64
             linux/arm64
