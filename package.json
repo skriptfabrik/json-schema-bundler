@@ -1,0 +1,31 @@
+{
+  "name": "@skriptfabrik/json-schema-bundler",
+  "version": "0.0.0-dev",
+  "description": "The missing CLI for the JSON Schema $Ref Parser",
+  "keywords": [
+    "json",
+    "schema",
+    "jsonschema",
+    "json-schema",
+    "json-pointer",
+    "$ref",
+    "bundle",
+    "cli"
+  ],
+  "author": {
+    "name": "Daniel Schröder",
+    "email": "daniel.schroeder@skriptfabrik.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skriptfabrik/json-schema-bundler.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "json-schema-ref-parser": "^9.0.9",
+    "minimist": "^1.2.6"
+  },
+  "bin": {
+    "json-schema-bundler": "./json-schema-bundler-cli.js"
+  }
+}

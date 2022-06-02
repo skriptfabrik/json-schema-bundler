@@ -5,16 +5,13 @@ LABEL maintainer="Daniel Schröder <daniel.schroeder@skriptfabrik.com>"
 ARG JSON_SCHEMA_BUNDLER_VERSION=latest
 
 ENV JSON_SCHEMA_BUNDLER_VERSION=${JSON_SCHEMA_BUNDLER_VERSION}
-ENV JSON_SCHEMA_REF_PARSER_VERSION=9.0.9
-ENV MINIMIST_VERSION=1.2.6
+ENV NODE_ENV=production
 
-COPY json-schema-bundler-cli.js /usr/local/lib/json-schema-bundler-cli.js
+COPY . /opt/json-schema-bundler-${JSON_SCHEMA_BUNDLER_VERSION}
 
 RUN set -eux; \
-    npm install -g \
-      json-schema-ref-parser@${JSON_SCHEMA_REF_PARSER_VERSION} \
-      minimist@${MINIMIST_VERSION}; \
+    npm --prefix /opt/json-schema-bundler-${JSON_SCHEMA_BUNDLER_VERSION} install; \
     rm -Rf ~/.npm; \
-    ln -s /usr/local/lib/json-schema-bundler-cli.js /usr/local/bin/json-schema-bundler
+    ln -s /opt/json-schema-bundler-${JSON_SCHEMA_BUNDLER_VERSION}/json-schema-bundler-cli.js /usr/local/bin/json-schema-bundler
 
 ENTRYPOINT [ "json-schema-bundler" ]
