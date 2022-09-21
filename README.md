@@ -27,30 +27,35 @@ Usage:
   json-schema-bundler [options] <input>
 
 Arguments:
-  input  The path or URL of the input schema file
+  input  The path of the input schema file
 
 Options:
-  -h, --help     Display this help message
-  -p, --pretty   Pretty print output
-  -s, --silent   Silent mode
-  -v, --version  Print version number
+  -d, --dereference  Replacing each reference with its resolved value
+  -h, --help         Display this help message
+  -p, --pretty       Pretty print output
+  -s, --silent       Silent mode
+  -v, --version      Print version number
 
 Examples:
-  Bundle all references in schema.json and print output to stdout:
+  Bundle all references in schema.json with internal $ref pointers and print output to stdout:
 
-    json-schema-bundler -ps schema.json
+    json-schema-bundler schema.json
+
+  Dereference all references in schema.json and print output to stdout:
+
+    json-schema-bundler -d schema.json
 ```
 
 ## Docker
 
-Use the following command to bundle (dereference) all references in `schema.json` and print the output to `stdout`:
+Use the following command to bundle all references in `schema.json` and print the output to `stdout`:
 
 ```bash
-docker run --rm -v `pwd`:/work -w /work skriptfabrik/json-schema-bundler -ps schema.json
+docker run --rm -v `pwd`:/work -w /work skriptfabrik/json-schema-bundler schema.json
 ```
 
-It is also possible to print the status logs to `stderr` and redirect `stdout` to a file:
+To dereference all references in `schema.json` and print the output to `stdout` add the `-d` option:
 
 ```bash
-docker run --rm -v `pwd`:/work -w /work skriptfabrik/json-schema-bundler -p schema.json > output.json
+docker run --rm -v `pwd`:/work -w /work skriptfabrik/json-schema-bundler -d schema.json
 ```

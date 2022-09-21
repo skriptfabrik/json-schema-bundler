@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-const $RefParser = require('json-schema-ref-parser');
+const $RefParser = require('@apidevtools/json-schema-ref-parser');
 const minimist = require('minimist');
 const path = require('path');
 const pkg = require('./package.json');
 
 const argv = minimist(process.argv.slice(2), {
-    boolean: ['h', 'p', 's'],
+    boolean: ['d', 'h', 'p', 's', 'v'],
     alias: {
+        d: 'dereference',
         h: 'help',
         p: 'pretty',
         s: 'silent',
@@ -31,19 +32,24 @@ if (argv.h || argv._.length < 1) {
     console.error(
         `JSON Schema Bundler\n\n${colors.yellow}Usage:${colors.end}\n  %s\n\n${colors.yellow}Arguments:${colors.end}\n  %s\n\n${colors.yellow}Options:${colors.end}\n  %s\n\n${colors.yellow}Examples:${colors.end}\n  %s`,
         `${path.basename(process.argv[1])} [options] <input>`,
-        `${colors.green}input${colors.end}  The path or URL of the input schema file`,
+        `${colors.green}input${colors.end}  The path of the input schema file`,
         [
-            `${colors.green}-h, --help${colors.end}     Display this help message`,
-            `${colors.green}-p, --pretty${colors.end}   Pretty print output`,
-            `${colors.green}-s, --silent${colors.end}   Silent mode`,
-            `${colors.green}-v, --version${colors.end}  Print version number`,
+            `${colors.green}-d, --dereference${colors.end}  Replacing each reference with its resolved value`,
+            `${colors.green}-h, --help${colors.end}         Display this help message`,
+            `${colors.green}-p, --pretty${colors.end}       Pretty print output`,
+            `${colors.green}-s, --silent${colors.end}       Silent mode`,
+            `${colors.green}-v, --version${colors.end}      Print version number`,
         ].join('\n  '),
         [
             [
-                `Bundle all references in ${colors.magenta}schema.json${colors.end} and print output to ${colors.magenta}stdout${colors.end}:`,
-                `${colors.green}${path.basename(process.argv[1])} -ps schema.json${colors.end}`,
+                `Bundle all references in ${colors.magenta}schema.json${colors.end} with internal $ref pointers and print output to ${colors.magenta}stdout${colors.end}:`,
+                `${colors.green}${path.basename(process.argv[1])} schema.json${colors.end}`,
             ].join('\n\n    '),
-        ].join('\n  '),
+            [
+                `Dereference all references in ${colors.magenta}schema.json${colors.end} and print output to ${colors.magenta}stdout${colors.end}:`,
+                `${colors.green}${path.basename(process.argv[1])} -d schema.json${colors.end}`,
+            ].join('\n\n    '),
+        ].join('\n\n  '),
     );
     process.exit(argv.h ? 0 : 1);
 }
@@ -56,7 +62,11 @@ argv.s || console.error(`Bundling ${input}`);
     let schema;
 
     try {
-        schema = await $RefParser.dereference(input);
+        if (argv.d) {
+            schema = await $RefParser.dereference(input);
+        } else {
+            schema = await $RefParser.bundle(input);
+        }
     } catch (err) {
         argv.s || console.error(err);
         process.exit(1);
