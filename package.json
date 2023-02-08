@@ -22,10 +22,15 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "^9.0.9",
-    "minimist": "^1.2.6"
+    "@apidevtools/json-schema-ref-parser": "^10.1.0",
+    "chalk": "^5.2.0",
+    "js-yaml": "~4.0.0",
+    "minimist": "^1.2.7"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "~4.0.0"
   },
   "bin": {
-    "json-schema-bundler": "./json-schema-bundler-cli.js"
+    "json-schema-bundler": "./json-schema-bundler-cli.mjs"
   }
 }

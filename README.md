@@ -1,6 +1,6 @@
 [![NPM Version](https://img.shields.io/npm/v/@skriptfabrik/json-schema-bundler)](https://www.npmjs.com/package/@skriptfabrik/json-schema-bundler)
 [![NPM Downloads](https://img.shields.io/npm/dt/@skriptfabrik/json-schema-bundler)](https://www.npmjs.com/package/@skriptfabrik/json-schema-bundler)
-[![Continuous Integration](https://img.shields.io/github/workflow/status/skriptfabrik/json-schema-bundler/Continuous%20Integration)](https://github.com/skriptfabrik/json-schema-bundler/actions/workflows/ci.yml)
+[![Continuous Integration](https://img.shields.io/github/actions/workflow/status/skriptfabrik/json-schema-bundler/ci.yml)](https://github.com/skriptfabrik/json-schema-bundler/actions/workflows/ci.yml)
 
 # JSON Schema Bundler
 
