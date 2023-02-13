@@ -32,7 +32,7 @@ if (argv.v) {
 
 if (argv.h || argv._.length < 1) {
     console.error(
-        `JSON Schema Bundler\n\n${chalk.yellow('Usage:')}\n  %s\n\n${chalk.yellow('Arguments:')}\n  %s\n\n${chalk.yellow('Options:')}\n  %s\n\n${chalk.yellow('Examples:')}\n  %s`,
+        `JSON Schema Bundler\n\n${chalk.yellow('Usage:')}\n%s\n\n${chalk.yellow('Arguments:')}\n%s\n\n${chalk.yellow('Options:')}\n%s\n\n${chalk.yellow('Examples:')}\n%s`,
         `  ${path.basename(process.argv[1])} [options] <input>`,
         `  ${chalk.green('input')}  The path of the input schema file`,
         [

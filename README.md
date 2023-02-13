@@ -35,6 +35,7 @@ Options:
   -p, --pretty       Pretty print output
   -s, --silent       Silent mode
   -v, --version      Print version number
+  -y, --yaml         Output as YAML document instead of JSON
 
 Examples:
   Bundle all references in schema.json with internal $ref pointers and print output to stdout:
