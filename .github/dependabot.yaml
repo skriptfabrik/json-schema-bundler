@@ -11,8 +11,6 @@ registries:
 updates:
   - package-ecosystem: 'docker'
     directory: '/'
-    reviewers:
-      - 'skriptfabrik/docker-maintainers'
     registries:
       - 'dockerhub'
     schedule:
@@ -20,8 +18,6 @@ updates:
 
   - package-ecosystem: 'github-actions'
     directory: '/'
-    reviewers:
-      - 'skriptfabrik/github-actions-maintainers'
     schedule:
       interval: 'weekly'
 
@@ -29,7 +25,5 @@ updates:
     directory: '/'
     ignore:
       - dependency-name: '@types/*'
-    reviewers:
-      - 'skriptfabrik/npm-maintainers'
     schedule:
       interval: 'weekly'
