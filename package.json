@@ -24,7 +24,7 @@
   "dependencies": {
     "@apidevtools/json-schema-ref-parser": "^14.0.2",
     "chalk": "^5.2.0",
-    "js-yaml": "^4.1.0",
+    "yaml": "^2.8.0",
     "minimist": "^1.2.8"
   },
   "devDependencies": {
