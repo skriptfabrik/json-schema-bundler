@@ -5,6 +5,7 @@ import chalk from 'chalk';
 import { readFile } from 'fs/promises';
 import minimist from 'minimist';
 import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
 import YAML from 'js-yaml';
 
@@ -15,6 +16,7 @@ const pkg = JSON.parse(await readFile(path.join(__dirname, 'package.json')));
 
 const argv = minimist(process.argv.slice(2), {
     boolean: ['d', 'h', 'p', 's', 'v', 'y'],
+    string: ['o'],
     alias: {
         d: 'dereference',
         h: 'help',
@@ -22,6 +24,7 @@ const argv = minimist(process.argv.slice(2), {
         s: 'silent',
         v: 'version',
         y: 'yaml',
+        o: 'output',
     },
 });
 
@@ -38,6 +41,7 @@ if (argv.h || argv._.length < 1) {
         [
             `  ${chalk.green('-d, --dereference')}  Replacing each reference with its resolved value`,
             `  ${chalk.green('-h, --help')}         Display this help message`,
+            `  ${chalk.green('-o, --output')}       Output file`,
             `  ${chalk.green('-p, --pretty')}       Pretty print output`,
             `  ${chalk.green('-s, --silent')}       Silent mode`,
             `  ${chalk.green('-v, --version')}      Print version number`,
@@ -73,8 +77,15 @@ try {
     process.exit(1);
 }
 
+let result;
 if (argv.y) {
-    console.log(YAML.dump(schema, argv.p ? undefined : { flowLevel: 3 }));
+    result = YAML.dump(schema, argv.p ? undefined : { flowLevel: 3 });
 } else {
-    console.log(JSON.stringify(schema, undefined, argv.p ? 2 : undefined));
+    result = JSON.stringify(schema, undefined, argv.p ? 2 : undefined);
+}
+
+if (argv.o === '') {
+    console.log(result);
+} else {
+    fs.writeFileSync(argv.o, result);
 }
