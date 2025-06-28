@@ -15,7 +15,9 @@ const pkg = JSON.parse(await readFile(path.join(__dirname, 'package.json')));
 
 const argv = minimist(process.argv.slice(2), {
     boolean: ['d', 'h', 'p', 's', 'v', 'y'],
+    string: ['c'],
     alias: {
+        c: 'circular',
         d: 'dereference',
         h: 'help',
         p: 'pretty',
@@ -36,6 +38,7 @@ if (argv.h || argv._.length < 1) {
         `  ${path.basename(process.argv[1])} [options] <input>`,
         `  ${chalk.green('input')}  The path of the input schema file`,
         [
+            `  ${chalk.green('-c, --circular')}     Resolving circular reference strategy, when doing dereference (-d). Possible values: true, false, ignore (default: true)`,
             `  ${chalk.green('-d, --dereference')}  Replacing each reference with its resolved value`,
             `  ${chalk.green('-h, --help')}         Display this help message`,
             `  ${chalk.green('-p, --pretty')}       Pretty print output`,
@@ -64,7 +67,18 @@ let schema;
 
 try {
     if (argv.d) {
-        schema = await $RefParser.dereference(input);
+        let circular = true; // default value for `dereference`
+        switch (argv.c) {
+            case 'false':
+                circular = false;
+                break;
+            case 'ignore':
+                circular = argv.c;
+                break;
+            default:
+                break;
+        }
+        schema = await $RefParser.dereference(input, {dereference: {circular: circular}});
     } else {
         schema = await $RefParser.bundle(input);
     }

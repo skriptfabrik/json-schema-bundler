@@ -29,7 +29,8 @@ Usage:
 Arguments:
   input  The path of the input schema file
 
-Options:
+Options:  
+  -c, --circular     Resolving circular reference strategy, when doing dereference (-d). Possible values: true, false, ignore (default: true)
   -d, --dereference  Replacing each reference with its resolved value
   -h, --help         Display this help message
   -p, --pretty       Pretty print output
