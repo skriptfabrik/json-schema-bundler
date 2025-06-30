@@ -32,6 +32,7 @@ Arguments:
 Options:
   -d, --dereference  Replacing each reference with its resolved value
   -h, --help         Display this help message
+  -o, --output       Output file
   -p, --pretty       Pretty print output
   -s, --silent       Silent mode
   -v, --version      Print version number
