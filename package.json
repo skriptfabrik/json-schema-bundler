@@ -27,9 +27,6 @@
     "yaml": "^2.8.0",
     "minimist": "^1.2.8"
   },
-  "devDependencies": {
-    "@types/js-yaml": "~4.0.0"
-  },
   "bin": {
     "json-schema-bundler": "./json-schema-bundler-cli.mjs"
   }
