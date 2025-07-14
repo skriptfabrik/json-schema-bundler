@@ -74,7 +74,7 @@ try {
 }
 
 if (argv.y) {
-    console.log(YAML.stringify(schema, argv.p ? 2 : undefined));
+    console.log(YAML.stringify(schema));
 } else {
     console.log(JSON.stringify(schema, undefined, argv.p ? 2 : undefined));
 }
