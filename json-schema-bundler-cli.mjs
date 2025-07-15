@@ -67,16 +67,11 @@ let schema;
 
 try {
     if (argv.d) {
-        let circular = true; // default value for `dereference`
-        switch (argv.c) {
-            case 'false':
-                circular = false;
-                break;
-            case 'ignore':
-                circular = argv.c;
-                break;
-            default:
-                break;
+        let circular = true;
+        if (argv.c === 'false') {
+            circular = false;
+        } else if (argv.c === 'ignore') {
+            circular = 'ignore';
         }
         schema = await $RefParser.dereference(input, {dereference: {circular: circular}});
     } else {
