@@ -1,0 +1,43 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [":gitSignOff"],
+  "enabledManagers": [
+    "dockerfile",
+    "github-actions",
+    "npm"
+  ],
+  "labels": ["dependencies"],
+  "hostRules": [
+    {
+      "hostType": "docker",
+      "matchHost": "docker.io",
+      "username": "skriptfabrik",
+      "password": "{{ secrets.DOCKERHUB_TOKEN }}"
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": ["dockerfile"],
+      "addLabels": ["docker"],
+      "schedule": ["* * * * 2"]
+    },
+    {
+      "matchManagers": ["github-actions"],
+      "addLabels": ["github_actions"],
+      "schedule": ["* * * * 0"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "addLabels": ["javascript"],
+      "schedule": ["* * * * 1"]
+    },
+    {
+      "matchManagers": ["npm"],
+      "matchPackageNames": ["@types/*"],
+      "enabled": false
+    }
+  ],
+  "prConcurrentLimit": 100,
+  "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
+  "timezone": "Europe/Berlin"
+}
