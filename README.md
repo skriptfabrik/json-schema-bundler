@@ -2,7 +2,7 @@
 
 [![NPM Version](https://img.shields.io/npm/v/@skriptfabrik/json-schema-bundler)](https://www.npmjs.com/package/@skriptfabrik/json-schema-bundler)
 [![NPM Downloads](https://img.shields.io/npm/dt/@skriptfabrik/json-schema-bundler)](https://www.npmjs.com/package/@skriptfabrik/json-schema-bundler)
-[![Continuous Integration](https://img.shields.io/github/actions/workflow/status/skriptfabrik/json-schema-bundler/ci.yml)](https://github.com/skriptfabrik/json-schema-bundler/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/actions/workflow/status/skriptfabrik/json-schema-bundler/release.yml)](https://github.com/skriptfabrik/json-schema-bundler/actions/workflows/release.yml)
 
 > The missing CLI for the [JSON Schema $Ref Parser](https://github.com/APIDevTools/json-schema-ref-parser)
 
