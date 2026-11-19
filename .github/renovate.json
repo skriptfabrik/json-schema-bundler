@@ -1,12 +1,20 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [":gitSignOff"],
+  "extends": [
+    "config:recommended",
+    ":disableRateLimiting",
+    ":gitSignOff",
+    ":semanticCommits",
+    ":semanticPrefixChore",
+    ":semanticCommitScopeDisabled"
+  ],
+  "labels": ["dependencies"],
+  "timezone": "Europe/Berlin",
   "enabledManagers": [
     "dockerfile",
     "github-actions",
     "npm"
   ],
-  "labels": ["dependencies"],
   "hostRules": [
     {
       "hostType": "docker",
@@ -37,9 +45,5 @@
       "matchPackageNames": ["@types/*"],
       "enabled": false
     }
-  ],
-  "prBodyTemplate": "{{{header}}}{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
-  "prConcurrentLimit": 0,
-  "prHourlyLimit": 0,
-  "timezone": "Europe/Berlin"
+  ]
 }
